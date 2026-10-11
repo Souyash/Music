@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html class="bg-surface scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>Melodia Music Academy | Learn • Practice • Perform</title>
+  <meta name="description" content="Nurturing virtuosity and creative distinction through world-class conservatory music education and heartfelt artistic performance."/>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4e051a",
+            "primary-container": "#6b1d2f",
+            "primary-light": "#8a243d",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#fbcdd4",
+            "secondary": "#997328",
+            "secondary-dark": "#775a19",
+            "secondary-container": "#fed488",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#4a3605",
+            "tertiary": "#29241e",
+            "surface": "#fff8f5",
+            "surface-dim": "#f5ece7",
+            "surface-container-low": "#faf2ee",
+            "surface-container": "#f4ece8",
+            "surface-container-high": "#eee5e0",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#1e1b19",
+            "on-surface-variant": "#5f5351",
+            "outline": "#877274",
+            "outline-light": "#e8dcda"
+          },
+          fontFamily: {
+            display: ["Playfair Display", "serif"],
+            headline: ["Playfair Display", "serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"]
+          },
+          animation: {
+            'float-slow': 'float 7s ease-in-out infinite',
+            'float-reverse': 'float-reverse 8s ease-in-out infinite',
+            'pulse-subtle': 'pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bar-1': 'soundWave 1.2s ease-in-out infinite alternate',
+            'bar-2': 'soundWave 0.8s ease-in-out 0.2s infinite alternate',
+            'bar-3': 'soundWave 1.5s ease-in-out 0.4s infinite alternate',
+            'bar-4': 'soundWave 1.0s ease-in-out 0.1s infinite alternate',
+            'bar-5': 'soundWave 1.3s ease-in-out 0.3s infinite alternate',
+            'shimmer': 'shimmer 2.5s infinite linear'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-14px) rotate(2deg)' }
+            },
+            'float-reverse': {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(12px) rotate(-2deg)' }
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.7', transform: 'scale(1.05)' }
+            },
+            soundWave: {
+              '0%': { height: '20%' },
+              '100%': { height: '100%' }
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+  
+  <style>
+    /* Custom Scrollbar & Utility Smoothing */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #faf2ee;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #dac0c2;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8a243d;
+    }
+    
+    /* Scroll Reveal Animation Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-100 { transition-delay: 100ms; }
+    .reveal-delay-200 { transition-delay: 200ms; }
+    .reveal-delay-300 { transition-delay: 300ms; }
+    .reveal-delay-400 { transition-delay: 400ms; }
+
+    /* Interactive cards hover elevation */
+    .interactive-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .interactive-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -10px rgba(78, 5, 26, 0.08), 0 10px 15px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Floating music notes background ambient */
+    .music-note {
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.12;
+      color: #6b1d2f;
+      font-size: 24px;
+      font-family: serif;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    /* Soundwave equalizer bars */
+    .eq-bar {
+      width: 3px;
+      border-radius: 9999px;
+      background: currentColor;
+    }
+
+    /* Safe Area insets */
+    .pb-safe { padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px); }
+    .pt-safe { padding-top: max(env(safe-area-inset-top, 0px), 0px); }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col selection:bg-secondary-container selection:text-primary">
+
+  <!-- TOP AMBIENT GLOW -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-secondary-container/20 to-transparent blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header id="main-header" class="fixed top-0 w-full z-40 transition-all duration-300 bg-surface/85 backdrop-blur-md border-b border-outline-light/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Name -->
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <div class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[24px]">music_note</span>
+          <span class="absolute inset-0 rounded-full border border-primary/20 animate-ping opacity-25"></span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-xl sm:text-2xl font-bold text-primary tracking-tight leading-none group-hover:text-primary-light transition-colors">Melodia</span>
+          <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold">Conservatory</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+        <a href="#courses" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Courses</a>
+        <a href="#philosophy" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Philosophy</a>
+        <a href="#faculty" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Faculty</a>
+        <a href="#events" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Events</a>
+        <a href="#testimonials" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Stories</a>
+        <a href="#gallery" class="px-3.5 py-2 text-sm font-medium text-on-surface hover:text-primary rounded-full hover:bg-surface-container transition-all">Gallery</a>
+      </nav>
+
+      <!-- CTA & Mobile Trigger -->
+      <div class="flex items-center gap-3">
+        <button onclick="openTrialModal()" class="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-primary-container text-on-primary text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:bg-primary transition-all duration-300 active:scale-95 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] group-hover:rotate-45 transition-transform duration-300">sparkles</span>
+          <span>Book Free Trial</span>
+          <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        </button>
+
+        <button aria-label="Open Navigation Menu" onclick="toggleMobileDrawer()" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[24px]" id="drawer-hamburger-icon">menu</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MOBILE SLIDE-OVER DRAWER -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <!-- Backdrop overlay -->
+    <div onclick="toggleMobileDrawer()" class="absolute inset-0 bg-tertiary/50 backdrop-blur-sm transition-opacity"></div>
+    
+    <!-- Drawer Content -->
+    <div id="drawer-panel" class="absolute top-0 right-0 w-4/5 max-w-xs h-full bg-surface-container-lowest shadow-2xl flex flex-col justify-between p-6 transform translate-x-full transition-transform duration-300 ease-out">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-outline-light">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[24px]">music_note</span>
+            <span class="font-display font-bold text-xl text-primary">Melodia</span>
+          </div>
+          <button onclick="toggleMobileDrawer()" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <nav class="flex flex-col gap-2 mt-6">
+          <a onclick="toggleMobileDrawer()" href="#courses" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">piano</span>
+            <span>Disciplines & Courses</span>
+          </a>
+          <a onclick="toggleMobileDrawer()" href="#philosophy" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">psychology</span>
+            <span>Philosophy & Methods</span>
+          </a>
+          <a onclick="toggleMobileDrawer()" href="#faculty" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">groups</span>
+            <span>Master Artists</span>
+          </a>
+          <a onclick="toggleMobileDrawer()" href="#events" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">event</span>
+            <span>Upcoming Recitals</span>
+          </a>
+          <a onclick="toggleMobileDrawer()" href="#testimonials" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">reviews</span>
+            <span>Student Stories</span>
+          </a>
+          <a onclick="toggleMobileDrawer()" href="#gallery" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container hover:text-primary font-medium text-sm transition-colors">
+            <span class="material-symbols-outlined text-primary text-[20px]">photo_library</span>
+            <span>Academy Life Gallery</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-outline-light space-y-3">
+        <button onclick="toggleMobileDrawer(); openTrialModal();" class="w-full py-3 rounded-xl bg-primary-container text-on-primary font-semibold text-sm shadow-md active:scale-95 transition-all text-center">
+          Book a Free Trial Lesson
+        </button>
+        <p class="text-center text-xs text-on-surface-variant">142 Conservatory Way • (555) 234-9812</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 flex flex-col w-full pt-16 sm:pt-20">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="relative overflow-hidden pt-8 pb-16 md:pt-14 md:pb-24 px-4 sm:px-6">
+      
+      <!-- Background Decorative Elements -->
+      <div class="music-note top-12 left-8 animate-float-slow">♩</div>
+      <div class="music-note top-32 right-12 animate-float-reverse">♫</div>
+      <div class="music-note bottom-10 left-1/4 animate-float-slow">♬</div>
+      <div class="music-note top-1/2 right-1/4 animate-float-reverse">𝄞</div>
+
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Hero Text -->
+          <div class="lg:col-span-7 flex flex-col items-start gap-5 reveal active">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary-container/50 border border-secondary/20 text-on-secondary-container text-xs font-semibold tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              <span class="uppercase tracking-widest text-[11px]">Autumn Conservatory Enrollment Open</span>
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-primary font-bold tracking-tight leading-[1.12]">
+              Discover Your Rhythm. <br/>
+              <span class="italic font-normal text-on-surface">Find Your Voice.</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-on-surface-variant max-w-xl leading-relaxed">
+              From your first note to center stage. Elevate your musicianship with world-class conservatory mentors, state-of-the-art acoustic suites, and an inspiring artistic community.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto pt-2">
+              <button onclick="openTrialModal()" class="h-12 px-6 rounded-full bg-primary-container text-on-primary font-semibold text-sm shadow-lg shadow-primary/20 hover:bg-primary hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2">
+                <span>Book a Complimentary Lesson</span>
+                <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+              </button>
+              <a href="#courses" class="h-12 px-6 rounded-full bg-surface-container-high text-primary font-semibold text-sm hover:bg-surface-container hover:-translate-y-0.5 active:translate-y-0 border border-outline-light transition-all duration-200 flex items-center justify-center gap-2">
+                <span>Explore Disciplines</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+              </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 w-full border-t border-outline-light/80 mt-2">
+              <div class="flex flex-col">
+                <span class="font-display text-2xl sm:text-3xl font-bold text-primary">1,200+</span>
+                <span class="text-xs sm:text-sm text-on-surface-variant font-medium">Scholars Mentored</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-display text-2xl sm:text-3xl font-bold text-primary">98%</span>
+                <span class="text-xs sm:text-sm text-on-surface-variant font-medium">Recital Pass Rate</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-display text-2xl sm:text-3xl font-bold text-primary">24</span>
+                <span class="text-xs sm:text-sm text-on-surface-variant font-medium">Master Instructors</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Media Card -->
+          <div class="lg:col-span-5 reveal reveal-delay-200">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-surface-container border border-outline-light/60 group">
+              
+              <!-- Image with subtle zoom on hover -->
+              <div class="relative h-80 sm:h-96 w-full overflow-hidden">
+                <img 
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out" 
+                  alt="A grand polished ebony concert piano resting next to a handcrafted classical spruce acoustic guitar inside an elegant, sunlit conservatory room" 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6e9TRCs9H2-8_Rr6MrJH-kxZEtfIMb6wM4Kge3GTjnoAt-F-6bQWRNU78pAme8SJjM03yDexKJOI50o9rC4jkYx-hPFAbs0UaIDiZoNrBeEskTALGDqX62e1So8vPbhvjwqsxh7K7_FJJTPEdtgPBuH7zhbf68USU-dmC8CTlpEL0cGopTqS1mHssdXWBl_db3PTAexfoCJPhfLKQS6yGvn6FTEw7sNEd5iTpGJxeNbfmEnOrTCxY6Q"
+                />
+                
+                <!-- Gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent"></div>
+              </div>
+
+              <!-- Overlaid Glass Badges & Equalizer -->
+              <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                <div class="px-3 py-1.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-md border border-white/30 text-primary text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span>Steinway &amp; Yamaha Studios</span>
+                </div>
+                
+                <span class="px-2.5 py-1 rounded-full bg-primary/70 backdrop-blur-md text-white text-[11px] font-medium tracking-wide">
+                  Geneva Certified
+                </span>
+              </div>
+
+              <!-- Bottom Card Info with Live Soundwave Bar Animation -->
+              <div class="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-white flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-secondary-container animate-pulse"></span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-secondary-container">Live Masterclass Suite</span>
+                  </div>
+
+                  <!-- Animated Equalizer Bars -->
+                  <div class="flex items-end gap-1 h-5 text-secondary-container">
+                    <span class="eq-bar animate-bar-1"></span>
+                    <span class="eq-bar animate-bar-2"></span>
+                    <span class="eq-bar animate-bar-3"></span>
+                    <span class="eq-bar animate-bar-4"></span>
+                    <span class="eq-bar animate-bar-5"></span>
+                  </div>
+                </div>
+
+                <h3 class="font-display text-lg sm:text-xl font-bold">Concert Hall &amp; Sound Labs</h3>
+                <p class="text-xs text-white/80 line-clamp-2">Acoustically tuned rehearsal rooms, artisan instruments, and multi-track recording suites.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. GUIDING PHILOSOPHY & METHOD -->
+    <section id="philosophy" class="py-16 sm:py-20 bg-surface-container-low px-4 sm:px-6 relative">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 reveal">
+          <span class="text-xs uppercase tracking-widest text-secondary font-bold">Our Guiding Philosophy</span>
+          <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-2">Where Passion Meets Mastery</h2>
+          <p class="text-sm sm:text-base text-on-surface-variant mt-3 leading-relaxed">
+            We transcend repetitive drills by pairing rigorous conservatory fundamentals with joyful creative self-expression and performance artistry.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          
+          <!-- Pillar 1 -->
+          <div class="interactive-card p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col gap-4 reveal reveal-delay-100">
+            <div class="w-14 h-14 rounded-2xl bg-secondary-container/40 text-secondary-dark flex items-center justify-center text-2xl font-bold shadow-inner">
+              <span class="material-symbols-outlined text-[30px]">school</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Master Mentorship</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Instructors with master’s degrees from Juilliard, Berklee, and European conservatories who nurture each student with genuine dedication and empathy.
+            </p>
+            <div class="mt-auto pt-2 flex items-center gap-1.5 text-xs font-semibold text-secondary-dark">
+              <span>1-on-1 Faculty Attention</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="interactive-card p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col gap-4 reveal reveal-delay-200">
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl font-bold shadow-inner">
+              <span class="material-symbols-outlined text-[30px]">tune</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Tailored Progression</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              No cookie-cutter curricula. We build custom lesson roadmaps balancing classical technique, contemporary ear-training, and modern composition.
+            </p>
+            <div class="mt-auto pt-2 flex items-center gap-1.5 text-xs font-semibold text-primary">
+              <span>Customized Roadmaps</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="interactive-card p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col gap-4 reveal reveal-delay-300">
+            <div class="w-14 h-14 rounded-2xl bg-secondary-container/40 text-secondary-dark flex items-center justify-center text-2xl font-bold shadow-inner">
+              <span class="material-symbols-outlined text-[30px]">stadium</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Stage &amp; Studio Recitals</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Quarterly public hall performances, chamber ensembles, and live recording sessions instill unwavering confidence and poise under the spotlight.
+            </p>
+            <div class="mt-auto pt-2 flex items-center gap-1.5 text-xs font-semibold text-secondary-dark">
+              <span>Quarterly Showcases</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. FEATURED DISCIPLINES & INTERACTIVE FILTER -->
+    <section id="courses" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">Curated Disciplines</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-1">Explore Your Instrument</h2>
+            <p class="text-sm sm:text-base text-on-surface-variant mt-2 max-w-xl">
+              Choose from classical conservatory pillars or contemporary studio styles taught across all skill levels.
+            </p>
+          </div>
+
+          <!-- Filter Pills -->
+          <div class="flex flex-wrap gap-2 overflow-x-auto pb-1" role="tablist">
+            <button class="course-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 bg-primary-container text-on-primary shadow-sm" data-category="all" type="button">All Disciplines</button>
+            <button class="course-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="keys" type="button">Piano &amp; Keys</button>
+            <button class="course-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="strings" type="button">Strings</button>
+            <button class="course-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="vocals" type="button">Vocals</button>
+            <button class="course-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="percussion" type="button">Percussion</button>
+          </div>
+        </div>
+
+        <!-- Grid of Course Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="course-cards-container">
+          
+          <!-- Card 1: Piano -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal" data-cat="keys">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="Hands of a pianist on ivory piano keys in warm amber sidelight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyyg6ycY8sWGXQJUpzRsqBjRScm3bnS72VyhF0yCrWuNwA43DCOmeUDXcOhdA9P7hJIpF7jAy9bb0hnMRBv7swuThtrSjVwtJRCygxqa5EmW4J-wJBEVv5c5WRMddSgWvStUfUchNbhEY_sWVXJj-k6X8oev9c1y0jEP6K39zv8nd0czYvM2HyWTY1K3YXv8wvmjHPgS0l9SMldtpPeJYl2DIbUqgUOL1uboL6IPgcqeArZOcRW4cjg"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">Intermediate</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">45m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Piano &amp; Keyboard</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Classical touch, chord phrasing, dynamic control, and contemporary harmonization on acoustic grand pianos.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$180 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Piano & Keyboard')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Guitar -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal reveal-delay-100" data-cat="strings">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="Close up of a warm acoustic guitar body and fingers fretting nylon strings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFDeRKneCyfZ_3PhQyiAU9w_7kX0sREj7Q6eJkA4konibydY-1qxkOvdMo-7rmUuaSPJ7Y7Ly7lCMYdZHJ5zwp5tFujD6kYIDhcdbtOTeLF8XnkiAwBat1aWgkN4Tk07k1LxvJKigVjBe5RVPP7nwPvBX9Wz0qQejtxMsxplG5EcWuwyELUpAbf1R1svV7DZH_wdxFUX9A6ingzSrvfwvu_W8SRRrNkGLtBf6sEweeBqYwg_AG8z_XkQ"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">All Levels</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">50m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Acoustic &amp; Electric Guitar</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Fingerstyle technique, intricate jazz chords, Spanish flamenco foundations, and modern solo improvisation.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$165 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Acoustic & Electric Guitar')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Vocals -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal reveal-delay-200" data-cat="vocals">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="A vintage studio microphone in an acoustic sound studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUqxx2uEN8woC2Y9rkSFoF5kGLGqBnkKPw9zU3K55lFLh7x3oY7Xe_G5I3M8tx1gHhkMj1wUxb7k_nitW-hJrdet6HQrZMrwQVEb7afzjhvqhosCl8OEl5bUzEsorPNzZFdNRXZQaINeRJdNrpBBAPPzYb1XbRnwL-4gLqrtMwp_NM21ZHNS1w7TNW0Y0RoNdUW2ak_S854DxfaQ38W7cKN1Cdb8gvVwU0JOWqM3tK-iDWSDWE2IY3wA"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">Masterclass</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">45m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Vocal Training &amp; Singing</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Diaphragmatic breath support, tonal resonance, expanded octave range, and emotive dramatic delivery.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$190 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Vocal Training & Singing')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Violin -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal" data-cat="strings">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="Handcrafted violin resting against a wooden stand next to a horsehair bow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDx4QfBMxWpMlmnyTOtl2g8ePGcDyzjUQX8mQ3Kt0YS0atyt8Qfgn_KXwQw8AJlD1_DUrTZAYgas-WaL7rl9XDJjq4tgNxC270zDEWlm47ooglJRAhjU62wLDT3rxnnWBlhIEKS6vxhedHVHNZR-Md4CtMBDazYjmwvLJaU6cC6Cu_Q0CY07TwZNP6tujL3T-joahsLNVhUNG1f1F8YjE5YpBc5e6uQ3dak_IpBaObrOc9fpx4GznA1A"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">Beginner - Adv</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">45m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Violin &amp; Orchestra Strings</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Refined French bow technique, posture ergonomics, tonal purity, accurate intonation, and chamber repertoire.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$175 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Violin & Strings')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Drums -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal reveal-delay-100" data-cat="percussion">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="Maple drum kit with brass cymbals glistening softly under spotlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_EBqlSOKHCo2NU-41XDb_0m7LO7SLXLlrmjMqIdWP0QFdYMwMUSCiFq-0e7MheDMxTg9367WXd58zAv5j2QeHz5LFJufHLiE1d9kepgJWubxr-3S9Ucs31z9bUh6lLuSoH_gy_rpAcSEHQ0NV_5HM1o2lZ6kRC5PfoTp8LQJSSv2iUa9l8Q0J4JZ_4ZPTWUFomNtn7GoEyuQx3SwPi2oY76wRZYJBcZaggrdhIgP6Pw6IDLA5Kvkxg"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">Foundation</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">60m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Drums &amp; Studio Percussion</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Fundamental rudiments, polyrhythms, dynamic coordination, and studio timing with metronomic precision.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$170 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Drums & Percussion')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Theory & Composition -->
+          <div class="course-card interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm overflow-hidden flex flex-col reveal reveal-delay-200" data-cat="keys">
+            <div class="h-48 w-full relative overflow-hidden group">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" alt="Handwritten sheet music manuscripts with brass metronome" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu9E0uAV-zOq2yeT8f1khTXByIds027_UaWb6XwKziZ7ZwB2_VXO_1z12v8eNs7rUI3ujlWZ445RCf_KWWVKnD_0SgVQt-cA96eWzjWo-30F2rsY1xkDfaFVO9s6yTct6YsQH6ogV_fskPTleTKqgyPmbPiUBQyR7BEl6LgyMn5yfINmnw5_rQgOfUZEEa-T57ie-FUfSvcMGfw6sbevoUkMZ7d1iMbbPP4AZleC1MNv9yJBkseqyfcw"/>
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-[11px] font-bold text-primary uppercase shadow-sm">Academic</span>
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-primary/75 backdrop-blur text-white text-[11px] font-medium">60m / Weekly</span>
+            </div>
+            <div class="p-5 sm:p-6 flex flex-col flex-1 gap-2">
+              <h3 class="font-display text-xl font-bold text-primary">Music Theory &amp; Composition</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Ear training, counterpoint harmony, full orchestral score analysis, and songwriting production fundamentals.</p>
+              <div class="pt-4 mt-auto border-t border-outline-light/60 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-on-surface-variant block">Tuition</span>
+                  <span class="text-base font-bold text-secondary-dark">$150 <span class="text-xs font-normal text-on-surface-variant">/ month</span></span>
+                </div>
+                <button onclick="openTrialModal('Music Theory & Composition')" class="px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all flex items-center gap-1">
+                  <span>Inquire</span>
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. ACADEMY ADVANTAGES & FACILITIES -->
+    <section class="py-16 sm:py-20 bg-surface-container-low px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <div class="lg:col-span-5 flex flex-col gap-4 reveal">
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">The Academy Advantage</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold leading-tight">
+              An Environment Built For Pure Acoustics.
+            </h2>
+            <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+              Every detail of our conservatory is calibrated for sonic clarity, comfort, and creative focus. We provide the equipment, the stage, and the support so you can concentrate purely on music.
+            </p>
+            
+            <div class="pt-2">
+              <button onclick="openTrialModal()" class="px-6 py-3 rounded-full bg-primary text-on-primary font-semibold text-sm hover:bg-primary-light transition-all shadow-md">
+                Schedule a Studio Tour
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal reveal-delay-200">
+            
+            <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-secondary-dark flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[20px]">volume_up</span>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="font-bold text-sm text-on-surface">Sound-Tuned Suites</h4>
+                <p class="text-xs text-on-surface-variant mt-0.5 leading-relaxed">Floating floors and bespoke wooden acoustic diffusers for authentic concert reverberation.</p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[20px]">calendar_today</span>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="font-bold text-sm text-on-surface">Flexible Scheduling</h4>
+                <p class="text-xs text-on-surface-variant mt-0.5 leading-relaxed">Easy mobile portal reschedules with generous 24h courtesy notice and weekend slots.</p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-secondary-container/40 text-secondary-dark flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[20px]">auto_graph</span>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="font-bold text-sm text-on-surface">Digital Progress Logs</h4>
+                <p class="text-xs text-on-surface-variant mt-0.5 leading-relaxed">Weekly audio notes, instructor feedback summaries, and practice targets on your phone.</p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[20px]">theater_comedy</span>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="font-bold text-sm text-on-surface">Semi-Annual Hall Galas</h4>
+                <p class="text-xs text-on-surface-variant mt-0.5 leading-relaxed">Formal performances with full stage lighting, guest audiences, and souvenir recordings.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. MEET RENOWNED FACULTY -->
+    <section id="faculty" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 reveal">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">Renowned Faculty</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-1">Learn from Performing Virtuosos</h2>
+          </div>
+          <p class="text-sm text-on-surface-variant max-w-md">
+            Our professors are touring soloists, recording artists, and passionate mentors who inspire excellence at every rehearsal.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          <!-- Faculty 1 -->
+          <div class="interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm p-6 flex flex-col items-center text-center reveal reveal-delay-100">
+            <div class="relative w-28 h-28 mb-4">
+              <img class="w-full h-full rounded-full object-cover ring-4 ring-secondary-container/60 shadow-md" alt="Elena Rostova, concert pianist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR6XUhnZqz44AGYp80I8-y7uV7x6T_0laTL26JRa6oQeZDdfct4kkGCfu5yAbBVJ68x-sPSyq_UC5rZ7XaOANovzU8SnBht3qwhtB4TJq6YtwIYahKvnVJIOkx-zGn_z3DYqDrG0-q11NsLx7GUFFYqCLHHR6iRcYsPDIX9QyWwJPra96IdB-jiv6VqkZvXnF7SPe-itE_e34lFpS-2sXrQCTpis97MJ_D6cqvB7FegxApD__6P5T9sg"/>
+              <span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-secondary-container text-secondary-dark text-[10px] font-bold shadow-sm">14y Exp</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Elena Rostova</h3>
+            <p class="text-xs text-secondary-dark font-semibold mt-0.5">Concert Pianist &amp; Piano Division Lead</p>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Vienna Conservatory alumna who has performed across Europe and mentored students into international competition finals.
+            </p>
+            <div class="flex gap-1.5 mt-4">
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Classical</span>
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Technique</span>
+            </div>
+          </div>
+
+          <!-- Faculty 2 -->
+          <div class="interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm p-6 flex flex-col items-center text-center reveal reveal-delay-200">
+            <div class="relative w-28 h-28 mb-4">
+              <img class="w-full h-full rounded-full object-cover ring-4 ring-secondary-container/60 shadow-md" alt="Marcus Vance, jazz guitarist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYGfkMhZHthxMkteEpOGQjm-W4ooyvsk1gxR517_8nFluz1UwGVC6apt2myR2UCXrGpaDmUS0XPaHIwLZd69VXA6xPLFDjm_B48IoGfR6A5H5vws9UGwVZgHiPF_c9aTIkOYU_7_7_uAWqfs6FskW0Qt9QyU_X2-uNUybg5Xkx7QmOZyjPxD0eJ5-krwpZTMUXNi5rtuNyIP1PXJ1s42idp3A5FgchevY3q9u2ba04F9G3O9MgUTt1xw"/>
+              <span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-secondary-container text-secondary-dark text-[10px] font-bold shadow-sm">10y Exp</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Marcus Vance</h3>
+            <p class="text-xs text-secondary-dark font-semibold mt-0.5">Jazz Guitarist &amp; Berklee Alumnus</p>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Recording artist specializing in modal improvisation, contemporary fingerstyle, and ensemble arranging.
+            </p>
+            <div class="flex gap-1.5 mt-4">
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Jazz / Blues</span>
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Composition</span>
+            </div>
+          </div>
+
+          <!-- Faculty 3 -->
+          <div class="interactive-card rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm p-6 flex flex-col items-center text-center reveal reveal-delay-300">
+            <div class="relative w-28 h-28 mb-4">
+              <img class="w-full h-full rounded-full object-cover ring-4 ring-secondary-container/60 shadow-md" alt="Sarah Lin, vocal coach" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHuf25PpyO5JhhnG_T3Dp4x0wJ68GIFQs_NNt2j8-HoeD-L3OQRDCZgwtLUKgKaSQu-MpzR_BzHJXT2ac94sPl2FaIZyBzPuw2hTR2ypMZ_GPZFtVBJStSiuTyNoQo5MaxsxQ5opOVcx9pHkr78QbQF-yvxH5Q4QTUYGqy_cu9DSD0uLhSZ1GWE_XvfjwonIwTMmRKLeNJu0VcHO0cxgHeOoO_MEsjZfN6d_h3dT1o5iv0i8FLDCD2Rg"/>
+              <span class="absolute bottom-0 right-0 px-2 py-0.5 rounded-full bg-secondary-container text-secondary-dark text-[10px] font-bold shadow-sm">12y Exp</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-on-surface">Sarah Lin</h3>
+            <p class="text-xs text-secondary-dark font-semibold mt-0.5">Soprano &amp; Vocal Faculty Coach</p>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Operatic soloist and vocal acoustics specialist dedicated to diaphragmatic health, bel canto tone, and stage confidence.
+            </p>
+            <div class="flex gap-1.5 mt-4">
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Opera &amp; Pop</span>
+              <span class="px-2.5 py-1 rounded-md bg-surface-container text-primary text-[11px] font-medium">Vocal Health</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. STUDENT TESTIMONIALS -->
+    <section id="testimonials" class="py-16 sm:py-24 bg-surface-container px-4 sm:px-6 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="text-center max-w-xl mx-auto mb-12 reveal">
+          <span class="text-xs uppercase tracking-widest text-secondary font-bold">Student Stories</span>
+          <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-1">Their Journey. Their Music.</h2>
+          <p class="text-sm text-on-surface-variant mt-2">Hear directly from musicians who found their voice at Melodia.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Testimonial 1 -->
+          <div class="interactive-card p-6 sm:p-7 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col justify-between reveal reveal-delay-100">
+            <div>
+              <div class="flex text-amber-500 mb-3">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-sm text-on-surface italic leading-relaxed">
+                “Elena helped me overcome stage fright and rediscover my love for the piano. In just one year, I performed Chopin’s Nocturne in C minor at our annual hall recital!”
+              </p>
+            </div>
+            <div class="pt-5 mt-4 border-t border-outline-light flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">JM</div>
+              <div>
+                <h4 class="font-bold text-sm text-on-surface">Julian Meyers</h4>
+                <p class="text-xs text-on-surface-variant">Piano • 2 Years at Melodia</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="interactive-card p-6 sm:p-7 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col justify-between reveal reveal-delay-200">
+            <div>
+              <div class="flex text-amber-500 mb-3">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-sm text-on-surface italic leading-relaxed">
+                “Marcus made modal jazz accessible and thrilling rather than intimidating. The weekend studio jam sessions have become the absolute highlight of my week.”
+              </p>
+            </div>
+            <div class="pt-5 mt-4 border-t border-outline-light flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-secondary-container text-secondary-dark font-bold flex items-center justify-center text-sm">CS</div>
+              <div>
+                <h4 class="font-bold text-sm text-on-surface">Clara Sterling</h4>
+                <p class="text-xs text-on-surface-variant">Guitar &amp; Harmony • 3 Years</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="interactive-card p-6 sm:p-7 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col justify-between reveal reveal-delay-300">
+            <div>
+              <div class="flex text-amber-500 mb-3">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-sm text-on-surface italic leading-relaxed">
+                “Vocal coaching with Sarah transformed both my breath control and top register. The poise I learned in masterclass translated directly into my professional career.”
+              </p>
+            </div>
+            <div class="pt-5 mt-4 border-t border-outline-light flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">MR</div>
+              <div>
+                <h4 class="font-bold text-sm text-on-surface">Maya Rodriguez</h4>
+                <p class="text-xs text-on-surface-variant">Vocal Masterclass • 1 Year</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. UPCOMING CONCERTS & EVENTS -->
+    <section id="events" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 reveal">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">Concerts &amp; Masterclasses</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-1">Every Note Deserves a Stage</h2>
+          </div>
+          <p class="text-sm text-on-surface-variant max-w-md">
+            Join us for public chamber performances, guest artist masterclasses, and open auditions.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          
+          <!-- Event 1 -->
+          <div class="interactive-card p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex flex-col items-center justify-center shrink-0 border border-primary/20">
+                <span class="text-[10px] uppercase font-bold text-primary tracking-widest">APR</span>
+                <span class="font-display text-2xl font-bold leading-none">18</span>
+              </div>
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-bold text-on-surface">Spring Classical Piano Recital</h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant mt-0.5">Conservatory Grand Hall • 6:30 PM</p>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-secondary-dark text-[10px] font-semibold">Open to Friends &amp; Family</span>
+              </div>
+            </div>
+            <button onclick="openTrialModal('RSVP: Spring Piano Recital')" class="px-5 py-2.5 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all shrink-0">
+              RSVP Guest Pass
+            </button>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="interactive-card p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal reveal-delay-100">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-secondary-container/60 text-secondary-dark flex flex-col items-center justify-center shrink-0 border border-secondary/20">
+                <span class="text-[10px] uppercase font-bold text-secondary-dark tracking-widest">MAY</span>
+                <span class="font-display text-2xl font-bold leading-none">02</span>
+              </div>
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-bold text-on-surface">Jazz Improvisation Masterclass</h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant mt-0.5">Studio Lab B • 4:00 PM</p>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-secondary-dark text-[10px] font-semibold">Guest Artist: Marcus Vance</span>
+              </div>
+            </div>
+            <button onclick="openTrialModal('RSVP: Jazz Masterclass')" class="px-5 py-2.5 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all shrink-0">
+              Reserve Seat
+            </button>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="interactive-card p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-light/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal reveal-delay-200">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex flex-col items-center justify-center shrink-0 border border-primary/20">
+                <span class="text-[10px] uppercase font-bold text-primary tracking-widest">MAY</span>
+                <span class="font-display text-2xl font-bold leading-none">15</span>
+              </div>
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-bold text-on-surface">Youth Chamber Ensemble Auditions</h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant mt-0.5">Auditorium East • 10:00 AM</p>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-secondary-dark text-[10px] font-semibold">Ages 8 - 17 • Free Entry</span>
+              </div>
+            </div>
+            <button onclick="openTrialModal('RSVP: Youth Chamber Auditions')" class="px-5 py-2.5 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-primary text-xs font-semibold transition-all shrink-0">
+              Register Scholar
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. GALLERY PREVIEW -->
+    <section id="gallery" class="py-16 sm:py-24 bg-surface-container-low px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="flex items-end justify-between mb-10 reveal">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">Immersion</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-primary font-bold mt-1">Academy Life</h2>
+          </div>
+          <span class="text-xs text-on-surface-variant">Moments from our studios</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+          <div class="relative rounded-2xl overflow-hidden shadow-sm h-48 sm:h-64 group reveal">
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="Student practicing cello under conservatory teacher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKP_M7I0u_xSFux1BhEKsj53BeAf1CGoN-Zm5UzzctWPMEd5nVhR3jIw8Iuxvpln3LB0ckAxrmZo6F-iB6XbovljAux15xcCtA4wXRfVOAZXSCHrQQjKvOxw_dxgRMjOVWfHeuFh3b3QXcWpfNODI20xxNYYo67Mjskhsg2U7KAyOvhkmdzxeK5XxGkzLmUCXq6HbHzLZRwixZAOrR0JEUqKDbVdwl4RNx7KNmrknpiBzwW6u8di7IZQ"/>
+            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          <div class="relative rounded-2xl overflow-hidden shadow-sm h-48 sm:h-64 group reveal reveal-delay-100">
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="Chamber ensemble string section performing on warmly lit stage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrimbgIjoU5ZhEFv7z9ZM_Ep2itzML5NXXrIkKPNtrZbGtLvYvHP3_jZBX32OLTMiLvY_cj7EQT1XgSX4Qcs9_cvn9DNQfGRBv5PdvRdKszQrsotmVf5tMZ67IDuioYhvQ5XkbFB0GGNyhDPfdk7wZ1mUT0V0zAqKSkTzvNWhGEVht-k0FSykIAolhYPjBgRB8gQve4xuRiw2cSCdwVYacN2BuNCrWsTZnK1AfxOoKI35PuMG7CVGhTw"/>
+            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          <div class="relative rounded-2xl overflow-hidden shadow-sm h-48 sm:h-64 group reveal reveal-delay-200">
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="Sound insulated recording suite with headphones and piano" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcjScXbopsPFXC_3kh2zYkf5_BrERWcxp_0zhqqO7JlovotMjH1jx3rbFlTNQ3l_kRVTlqVf8HufDD1atn42qH1bTec1t0zgWuifkrSzyceNzm578rJTzx2wZVd72uzcv5z2Aov4LRRj_ticqrU7tiAVunGYJuNEW9gxFyFLvitvVTbtaCDd6RHbPKmW9Nhk6zcCDfGwwznPhPxwUlP-bV3_Cf8zGU073hzLB8kY9KxaiUnsrJamoj2A"/>
+            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          <div class="relative rounded-2xl overflow-hidden shadow-sm h-48 sm:h-64 group reveal reveal-delay-300">
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="Joyful vocal coach smiling while student sings into vintage microphone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-evSQYDhNoTrEstSylCaUfN2UzyoqvcW3y-8xhzBfQHtplatZznU4lYR0GbWVwsxs2l1iuoCmnHOPqh22TudhG2kaq4AHV00daOw9ZvBGtjASUA-OgcYud1zTv3x3R1tcuF775oDWgX-k465vVzKYrKKoP40SzcDpsa1FFk9npEWFnjaId1cOAELA1YVHw0qVFPW7VNtbTOFKmD5-uYpFQnV9wQ28nPC3G3dYLR-PxfLVlz4UwscbEQ"/>
+            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. CLIMAX CALL TO ACTION -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="rounded-3xl bg-primary text-on-primary p-8 sm:p-14 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 reveal">
+          
+          <!-- Background Ambient Flare -->
+          <div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-primary-light/40 blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-xl">
+            <span class="text-xs uppercase tracking-widest text-secondary-container font-semibold">Your Stage Awaits</span>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mt-2 text-white">
+              Your Musical Journey Starts Here.
+            </h2>
+            <p class="text-sm sm:text-base text-white/80 mt-4 leading-relaxed">
+              Book a complimentary 30-minute private trial lesson. Tour our sound suites, meet an instructor, and discover your potential.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+            <button onclick="openTrialModal()" class="h-13 px-7 py-3.5 rounded-full bg-secondary hover:bg-secondary-container hover:text-secondary-dark text-white font-bold text-sm shadow-xl active:scale-95 transition-all text-center flex items-center justify-center gap-2">
+              <span>Book 30-Min Trial</span>
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            </button>
+            <a href="tel:+15552349812" class="h-13 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm backdrop-blur-sm border border-white/20 transition-all text-center flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">call</span>
+              <span>(555) 234-9812</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-primary-container text-white py-14 px-4 sm:px-6 relative overflow-hidden border-t border-primary">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
+      
+      <!-- Brand & Mission -->
+      <div class="md:col-span-4 flex flex-col gap-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[22px]">music_note</span>
+          </div>
+          <span class="font-display text-2xl font-bold">Melodia Academy</span>
+        </div>
+        <p class="text-xs sm:text-sm text-white/70 leading-relaxed">
+          Nurturing virtuosity and creative distinction through world-class conservatory education, timeless pedagogy, and vibrant musical expression.
+        </p>
+        <p class="text-xs text-white/50">© 2025 Melodia Music Academy. All rights reserved.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="md:col-span-2">
+        <h4 class="text-xs uppercase tracking-wider text-secondary-container font-bold mb-4">Disciplines</h4>
+        <ul class="space-y-2 text-xs text-white/80">
+          <li><a href="#courses" class="hover:text-white transition-colors">Piano Division</a></li>
+          <li><a href="#courses" class="hover:text-white transition-colors">Strings &amp; Violin</a></li>
+          <li><a href="#courses" class="hover:text-white transition-colors">Classical Vocal</a></li>
+          <li><a href="#courses" class="hover:text-white transition-colors">Drum Percussion</a></li>
+          <li><a href="#courses" class="hover:text-white transition-colors">Music Theory</a></li>
+        </ul>
+      </div>
+
+      <!-- Academy Contact Info -->
+      <div class="md:col-span-3">
+        <h4 class="text-xs uppercase tracking-wider text-secondary-container font-bold mb-4">Visit Us</h4>
+        <p class="text-xs text-white/80 leading-relaxed">
+          142 Conservatory Way<br/>
+          Boston, MA 02115<br/><br/>
+          Mon - Fri: 8:00 AM – 9:00 PM<br/>
+          Saturday: 9:00 AM – 7:00 PM<br/>
+          Sunday: 10:00 AM – 5:00 PM
+        </p>
+      </div>
+
+      <!-- Newsletter Box -->
+      <div class="md:col-span-3 flex flex-col gap-3">
+        <h4 class="text-xs uppercase tracking-wider text-secondary-container font-bold">Recital Dispatches</h4>
+        <p class="text-xs text-white/70">Subscribe to receive seasonal concert invitations and masterclass schedules.</p>
+        
+        <form onsubmit="handleNewsletter(event)" class="flex gap-2 mt-1">
+          <input 
+            type="email" 
+            id="newsletter-email"
+            required 
+            placeholder="Your email address" 
+            class="flex-1 px-3.5 py-2.5 rounded-xl bg-white/10 text-white placeholder-white/50 text-xs border border-white/20 focus:outline-none focus:border-secondary-container"
+          />
+          <button type="submit" class="px-4 py-2.5 rounded-xl bg-secondary hover:bg-secondary-container hover:text-secondary-dark text-white text-xs font-semibold transition-all">
+            Join
+          </button>
+        </form>
+        <span id="newsletter-msg" class="text-[11px] text-secondary-container hidden">Thank you for subscribing!</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- TRIAL BOOKING MODAL -->
+  <div id="trial-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div onclick="closeTrialModal()" class="absolute inset-0 bg-tertiary/60 backdrop-blur-sm"></div>
+    
+    <div class="relative w-full max-w-lg bg-surface-container-lowest rounded-3xl p-6 sm:p-8 shadow-2xl border border-outline-light transform scale-95 transition-transform duration-300 z-10" id="trial-modal-content">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-outline-light">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-primary">Book Complimentary Trial</h3>
+        </div>
+        <button onclick="closeTrialModal()" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleTrialSubmit(event)" class="space-y-4 mt-5">
+        <div>
+          <label class="block text-xs font-semibold text-on-surface mb-1">Your Full Name</label>
+          <input type="text" required placeholder="e.g. Clara Schumann" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface"/>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Email Address</label>
+            <input type="email" required placeholder="clara@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Phone Number</label>
+            <input type="tel" required placeholder="(555) 000-0000" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Instrument of Interest</label>
+            <select id="modal-instrument-select" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface">
+              <option value="Piano & Keyboard">Piano &amp; Keyboard</option>
+              <option value="Acoustic & Electric Guitar">Acoustic &amp; Electric Guitar</option>
+              <option value="Vocal Training & Singing">Vocal Training &amp; Singing</option>
+              <option value="Violin & Strings">Violin &amp; Orchestra Strings</option>
+              <option value="Drums & Percussion">Drums &amp; Percussion</option>
+              <option value="Music Theory & Composition">Music Theory &amp; Composition</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Current Skill Level</label>
+            <select class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface">
+              <option>Total Beginner (No experience)</option>
+              <option>Elementary (1-2 years)</option>
+              <option>Intermediate (3-5 years)</option>
+              <option>Advanced / Pre-Conservatory</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-on-surface mb-1">Preferred Time / Notes (Optional)</label>
+          <input type="text" placeholder="e.g. Weekday afternoons or Saturday mornings" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-light text-sm focus:outline-none focus:border-primary text-on-surface"/>
+        </div>
+
+        <button type="submit" id="trial-submit-btn" class="w-full py-3.5 rounded-xl bg-primary-container text-on-primary font-semibold text-sm hover:bg-primary shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+          <span>Confirm Trial Booking</span>
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        </button>
+
+        <p id="trial-confirmation-msg" class="text-xs text-center text-emerald-700 font-semibold hidden pt-2">
+          ✓ Booking received! Our admissions dean will reach out within 24 hours.
+        </p>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- INTERACTIVITY & ANIMATION JAVASCRIPT -->
+  <script>
+    // 1. Intersection Observer for Scroll Reveals
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealElements = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => observer.observe(el));
+    });
+
+    // 2. Course Category Filtering
+    document.querySelectorAll('.course-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset all buttons
+        document.querySelectorAll('.course-filter-btn').forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+          b.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        
+        // Active button styles
+        btn.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+        const filter = btn.getAttribute('data-category');
+        const cards = document.querySelectorAll('.course-card');
+
+        cards.forEach((card, idx) => {
+          const match = (filter === 'all' || card.getAttribute('data-cat') === filter);
+          if (match) {
+            card.style.display = 'flex';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, idx * 40);
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 3. Mobile Slide-Over Drawer Toggle
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobile-drawer');
+      const panel = document.getElementById('drawer-panel');
+      const isClosed = drawer.classList.contains('pointer-events-none');
+
+      if (isClosed) {
+        drawer.classList.remove('pointer-events-none', 'opacity-0');
+        drawer.classList.add('pointer-events-auto', 'opacity-100');
+        panel.classList.remove('translate-x-full');
+      } else {
+        drawer.classList.add('pointer-events-none', 'opacity-0');
+        drawer.classList.remove('pointer-events-auto', 'opacity-100');
+        panel.classList.add('translate-x-full');
+      }
+    }
+
+    // 4. Modal Booking Logic
+    function openTrialModal(courseName = '') {
+      const modal = document.getElementById('trial-modal');
+      const content = document.getElementById('trial-modal-content');
+      const select = document.getElementById('modal-instrument-select');
+      
+      if (courseName && select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].text.includes(courseName) || select.options[i].value.includes(courseName)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      modal.classList.remove('pointer-events-none', 'opacity-0');
+      modal.classList.add('pointer-events-auto', 'opacity-100');
+      content.classList.remove('scale-95');
+      content.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrialModal() {
+      const modal = document.getElementById('trial-modal');
+      const content = document.getElementById('trial-modal-content');
+      
+      modal.classList.add('pointer-events-none', 'opacity-0');
+      modal.classList.remove('pointer-events-auto', 'opacity-100');
+      content.classList.add('scale-95');
+      content.classList.remove('scale-100');
+      document.body.style.overflow = '';
+    }
+
+    function handleTrialSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('trial-submit-btn');
+      const msg = document.getElementById('trial-confirmation-msg');
+      btn.innerHTML = '<span>Processing...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.classList.add('hidden');
+        msg.classList.remove('hidden');
+        setTimeout(() => {
+          closeTrialModal();
+          e.target.reset();
+          btn.innerHTML = '<span>Confirm Trial Booking</span><span class="material-symbols-outlined text-[18px]">check_circle</span>';
+          btn.classList.remove('hidden');
+          btn.disabled = false;
+          msg.classList.add('hidden');
+        }, 2500);
+      }, 700);
+    }
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const msg = document.getElementById('newsletter-msg');
+      const input = document.getElementById('newsletter-email');
+      msg.classList.remove('hidden');
+      input.value = '';
+      setTimeout(() => {
+        msg.classList.add('hidden');
+      }, 4000);
+    }
+
+    // Header shadow effect on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 20) {
+        header.classList.add('shadow-md');
+      } else {
+        header.classList.remove('shadow-md');
+      }
+    });
+  </script>
+
+</body>
+</html>
